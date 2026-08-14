@@ -1,98 +1,252 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🛍️ Kalayab
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+> Smart product search & price comparison engine
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+کالایاب (Kalayab) یک موتور هوشمند جستجو و مقایسه قیمت محصولات است که با هدف جمع‌آوری قیمت از فروشگاه‌های مختلف و پیدا کردن بهترین پیشنهاد برای کاربر ساخته می‌شود.
 
-## Description
+این پروژه در حال توسعه است و Backend آن با NestJS + TypeScript طراحی شده است.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## 🚀 Project Status
 
-```bash
-$ npm install
-```
+🟡 In Development
 
-## Compile and run the project
+هسته اولیه Backend پیاده‌سازی شده و معماری Scraper Engine در حال توسعه است.
 
-```bash
-# development
-$ npm run start
+### Current Progress
 
-# watch mode
-$ npm run start:dev
+- [x] NestJS project setup
+- [x] Products module
+- [x] Product data model
+- [x] Product search API
+- [x] Scraper interface
+- [x] Scraper Manager
+- [x] Dependency Injection for Scrapers
+- [x] Mock Scraper
+- [x] ProductsService integration
+- [x] Unit tests
+- [ ] Real store scrapers
+- [ ] Product normalization
+- [ ] Multi-store price comparison
+- [ ] PostgreSQL integration
+- [ ] Redis caching
+- [ ] Price history
+- [ ] Price alerts
+- [ ] Authentication
+- [ ] Frontend
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## 🧠 Architecture
 
-```bash
-# unit tests
-$ npm run test
+The backend is designed around a modular and extensible scraping architecture.
 
-# e2e tests
-$ npm run test:e2e
+`text
+                         ┌─────────────────────┐
+                         │       Client        │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │ ProductsController  │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   ProductsService   │
+                         └──────────┬──────────┘
+                                    │
+                                    ▼
+                         ┌─────────────────────┐
+                         │   ScraperManager    │
+                         └──────────┬──────────┘
+                                    │
+                 ┌──────────────────┼──────────────────┐
+                 ▼                  ▼                  ▼
+          ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+          │  Scraper A  │    │  Scraper B  │    │  Scraper C  │
+          └──────┬──────┘    └──────┬──────┘    └──────┬──────┘
+                 │                  │                  │
+                 └──────────────────┼──────────────────┘
+                                    ▼
+                              Product[]
+The Scraper interface provides a common contract for all store scrapers, allowing new stores to be added without changing the core scraping logic.
+📁 Project Structure
+src/
+└── modules/
+    │
+    ├── app/
+    │
+    ├── products/
+    │   ├── product.interface.ts
+    │   ├── products.controller.ts
+    │   ├── products.service.ts
+    │   ├── products.module.ts
+    │   └── products.service.spec.ts
+    │
+    └── scrapers/
+        ├── scraper.interface.ts
+        ├── scraper.manager.ts
+        ├── scraper.tokens.ts
+        ├── scrapers.module.ts
+        │
+        └── mock/
+            └── mock.scraper.ts
+🔌 API
+Search Products
+GET /products/search?q={query}
+Example:
+GET /products/search?q=iphone
+Current response:
+{
+  "query": "iphone",
+  "results": [
+    {
+      "id": "mock-iphone-15",
+      "title": "iphone 128GB",
+      "price": 61000000,
+      "currency": "IRT",
+      "store": {
+        "name": "Mock Store"
+      },
+      "availability": true
+    }
+  ]
+}
+The current implementation uses a Mock Scraper. Real store integrations are planned for upcoming development stages.
+🧩 Product Model
+Products are normalized into a common structure:
+interface Product {
+  id: string;
+  title: string;
+  url: string;
+  image?: string;
+  price: number;
+  currency: 'IRR' | 'IRT';
 
-# test coverage
-$ npm run test:cov
-```
+  store: {
+    name: string;
+    url: string;
+    logo?: string;
+  };
 
-## Deployment
+  availability: boolean;
+  scrapedAt: Date;
+}
+This allows products collected from different stores to follow a consistent structure.
+🕷️ Scraper System
+Every scraper implements the common Scraper interface:
+interface Scraper {
+  search(query: string): Promise<Product[]>;
+}
+This makes the system extensible.
+For example, future integrations can follow the same architecture:
+scrapers/
+├── digikala/
+├── torob/
+├── emalls/
+└── ...
+🛠️ Tech Stack
+Backend
+Node.js
+NestJS
+TypeScript
+Planned Infrastructure
+PostgreSQL
+Redis
+RabbitMQ
+Docker
+Testing
+Jest
+⚙️ Installation
+Clone the repository:
+git clone https://github.com/YOUR_USERNAME/kalayab-backend.git
+Enter the project:
+cd kalayab-backend
+Install dependencies:
+npm install
+Run development server:
+npm run start:dev
+The API will be available at:
+http://localhost:3000
+🧪 Running Tests
+Run unit tests:
+npm test
+Run tests in watch mode:
+npm run test:watch
+🎯 Roadmap
+Phase 1 — Backend Core
+[x] Project architecture
+[x] Product module
+[x] Scraper abstraction
+[x] Scraper Manager
+[x] Mock scraper
+[x] Unit testing
+Phase 2 — Real Scraping
+[ ] HTTP client
+[ ] First real store scraper
+[ ] HTML parsing
+[ ] Product extraction
+[ ] Error handling
+[ ] Timeout & retry mechanism
+[ ] Scraper logging
+Phase 3 — Price Engine
+[ ] Multi-store search
+[ ] Product normalization
+[ ] Price comparison
+[ ] Best-price detection
+[ ] Availability detection
+Phase 4 — Data Layer
+[ ] PostgreSQL
+[ ] Redis cache
+[ ] Product persistence
+[ ] Search history
+[ ] Price history
+Phase 5 — Smart Features
+[ ] Price drop detection
+[ ] Price alerts
+[ ] Product tracking
+[ ] Recommendation engine
+🔐 Environment Variables
+Environment configuration will be added as external services are introduced.
+Example:
+PORT=3000
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+DATABASE_URL=
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+REDIS_URL=
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+RABBITMQ_URL=
+Never commit real credentials or secret keys to the repository.
+📌 Development Philosophy
+Kalayab is being built with a focus on:
+Modular architecture
+Separation of concerns
+Extensible scraper system
+Clean TypeScript code
+Testable services
+Scalable backend architecture
+The goal is to make adding a new store as simple as implementing a new scraper without modifying the core search engine.
+📈 Project Vision
+Kalayab aims to evolve from a simple price comparison service into a smart shopping engine.
+The long-term vision is:
+Search
+   ↓
+Discover
+   ↓
+Compare
+   ↓
+Analyze
+   ↓
+Find the Best Deal
+   ↓
+Track Price
+   ↓
+Notify User
+👨‍💻 Author
+Mehran
+Backend Developer & Builder
+⭐ Project
+If you find this project interesting, consider giving it a ⭐ on GitHub.
+🚧 Kalayab is currently under active development.
