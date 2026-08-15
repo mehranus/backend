@@ -1,21 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { ScraperManager } from '../scrapers/scraper.manager';
-import { ProductIterface } from './product.interface';
+import { ProductInterface } from './product.interface';
 
 @Injectable()
 export class ProductService {
   constructor(
-    private readonly scraperManger:ScraperManager
-  ){}
+    private readonly scraperManager: ScraperManager,
+  ) {}
 
-  async search(querey:string):Promise<{
-    querey:string,
-    resulets:ProductIterface[]
-  }>{
-    const resulets=await this.scraperManger.search(querey)
-    return{
-      querey,
-      resulets
-    }
+  async search(query: string): Promise<{
+    query: string;
+    results: ProductInterface[];
+  }> {
+    const results = await this.scraperManager.search(query);
+
+    return {
+      query,
+      results,
+    };
   }
 }

@@ -1,14 +1,18 @@
-import { ProductIterface } from "../products/product.interface";
-import { ScraperInterface } from "./scrapers.interface";
+import { Injectable } from '@nestjs/common';
+import { ProductInterface } from '../products/product.interface';
+import { ScraperInterface } from './scrapers.interface';
 
-
-export class ScraperManager{
+@Injectable()
+export class ScraperManager {
   constructor(
-    private readonly scrapers:ScraperInterface[]
-  ){}
+    private readonly scrapers: ScraperInterface[],
+  ) {}
 
-  async search(qerury:string):Promise<ProductIterface[]>{
-    const resulets=await Promise.all(this.scrapers.map((scraper)=>scraper.search(qerury)),);
-    return resulets.flat()
+  async search(query: string): Promise<ProductInterface[]> {
+    const results = await Promise.all(
+      this.scrapers.map((scraper) => scraper.search(query)),
+    );
+
+    return results.flat();
   }
 }

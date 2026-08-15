@@ -1,9 +1,9 @@
-import { ProductIterface } from "@/modules/products/product.interface";
+import { ProductInterface } from "@/modules/products/product.interface";
 import { ScraperInterface } from "../scrapers.interface";
 
 
 export class MockScraper implements ScraperInterface{
-  async search(query: string): Promise<ProductIterface[]> {
+  async search(query: string): Promise<ProductInterface[]> {
     return[
       {
       id:'mock-iphone-15',

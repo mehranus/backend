@@ -1,6 +1,6 @@
-import { ProductIterface } from "../products/product.interface";
+import { ProductInterface } from "../products/product.interface";
 
 
 export interface ScraperInterface{
-  search(query:string):Promise<ProductIterface[]>;
+  search(query:string):Promise<ProductInterface[]>;
 }
