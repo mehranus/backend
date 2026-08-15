@@ -284,9 +284,9 @@ npm run test:watch
 
 ### Phase 2 — Real Scraping
 
-- [ ] HTTP client
-- [ ] First real store scraper
-- [ ] HTML parsing
+- [x] HTTP client
+- [x] First real store scraper
+- [x] HTML parsing
 - [ ] Product extraction
 - [ ] Error handling
 - [ ] Timeout handling
