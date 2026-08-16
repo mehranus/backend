@@ -108,6 +108,27 @@ export class TorobScraper implements ScraperInterface {
       return [];
     }
   }
+
+  private isOriginalSamsungPhone(title: string): boolean {
+  const normalized = title.toLowerCase();
+
+  const blockedWords = [
+    'طرح',
+    'سویس',
+    'soyes',
+    'mini',
+    'کپی',
+    'های کپی',
+    'های‌کپی',
+    'فیک',
+  ];
+
+  return !blockedWords.some((word) => normalized.includes(word));
+}
+
+
+
+
 private normalizePrice(rawPrice: unknown, unit: 'IRR' | 'IRT' = 'IRT'): number {
   const price = Number(rawPrice);
 
@@ -136,15 +157,7 @@ private normalizePrice(rawPrice: unknown, unit: 'IRR' | 'IRT' = 'IRT'): number {
     ? item.price
     : 0;
 
-/*
- * Torob price در پاسخ API به ریال است.
- *
- * مثال:
- * 270000000 ریال => 27000000 تومان
- */
-const priceInToman = rawPrice > 0
-  ? Math.floor(rawPrice / 10)
-  : 0;
+
   
 
     return {
